@@ -6,7 +6,7 @@ You are making one application with a React frontend for the game and a NodeJS b
 
 ## API
 
-Develop a NodeJS web server with the following requirements:
+Develop a NodeJS applications with the following requirements:
 
 1. All coding work must be done in this repository.
 2. Homepage route (`/`) that has a login for a username and password. The login check can just be a simple check against a variable on the server. For the frontend, I recommend using `localStorage` or a cookie to fake logins once the request comes back to the server that username and password is valid.
