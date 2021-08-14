@@ -6,13 +6,13 @@ You are making one application with a React frontend for the game and a NodeJS b
 
 ## API
 
-Develop a NodeJS applications with the following requirements:
+Develop NodeJS applications with the following requirements:
 
 1. All coding work must be done in this repository.
-2. Homepage route (`/`) that has a login for a username and password. The login check can just be a simple check against a variable on the server. For the frontend, I recommend using `localStorage` or a cookie to fake logins once the request comes back to the server that username and password is valid.
-3. Game route (`/game`) that requires a login. If the user isn't logged in, they're simply redirected to the homepage.
+2. Homepage page (`/`) that has a login for a username and password. The login check can just be a simple check against a variable on the server. For the frontend, I recommend using `localStorage` or a cookie to fake logins once the request comes back to the server that username and password is valid.
+3. Game page (`/game`) that requires a login. If the user isn't logged in, they're simply redirected to the homepage.
 4. API route(s) to handle the game. The routes live on the API server and is named appropriately.
-5. A logout route (`/logout`) that logs the user out and redirects to the `/` route.
+5. A logout page (`/logout`) that logs the user out and redirects to the `/` page.
 
 Please `git commit` and `git push` at least every 60 minutes to the repository. The commits are not being judged and they're only there for understanding the process and time-keeping. Feel free to use any framework.
 
