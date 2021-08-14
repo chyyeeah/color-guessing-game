@@ -42,7 +42,7 @@ In addition, create a logout button (that fires the `/logout` route) in the top 
 
 The container can be any fixed square width and height values, so no need to factor in responsive design unless you want to. The color areas are equal in size, some are just horizontal and others are vertical. Beyond that, feel free to style the above in whatever colors, typography, etc. that you want--we look forward to seeing the final application!
 
-Feel free to use any React framework or boilerplate.
+Feel free to use any React-powered framework or boilerplate for the frontend and NodeJS-powered framework or boilerplate for the backend.
 
 ## Choose additional feature(s)
 
