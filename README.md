@@ -32,7 +32,7 @@ When the user loads the page, _the data below is provided by the server_. This i
 
 - logged in user's name for the header
 - their current wins and losses
-- the current random RGB color they're trying to match (show with FIND THIS COLOR in the center objective area)
+- the current random RGB color they're trying to match (show with FIND THIS COLOR in the center objective area, this area should be white and uncolored)
 - 6 color areas that have random RGB values as their background color with one of the areas having the correct color that the player is trying to match (correct position should be randomized)
 - the time in San Francisco and New York (use [momentJS](https://momentjs.com/) in the backend to accomplish this)
 
@@ -48,7 +48,7 @@ Feel free to use any React-powered framework or boilerplate for the frontend and
 
 You must choose at least one additional feature to implement on this application from the following options:
 
-- Use CSS Grid for the display.
+- Use CSS Grid for the display and use a Google Font for font(s) in the application.
 - Use off-app storage such as a database (that isn't Firebase).
 - Deploy this application somewhere with the API not supporting CORs.
 
