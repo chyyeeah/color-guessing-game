@@ -10,9 +10,20 @@ import Home from './Home/Home.jsx';
 import Logout from './Logout/Logout.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
 
+const myStorage = window.localStorage;
+
+const checkLoggedIn = () => {
+  return !!myStorage.isLoggedIn;
+};
+
+const getUsername = () => {
+  if (myStorage.username) return myStorage.username;
+  return '';
+};
+
 export default () => {
-  const [ isLoggedIn, setIsLoggedIn ] = useState(true);
-  const [ username, setUsername ] = useState('');
+  const [ isLoggedIn, setIsLoggedIn ] = useState(checkLoggedIn());
+  const [ username, setUsername ] = useState(getUsername());
 
   return (
     <Router>

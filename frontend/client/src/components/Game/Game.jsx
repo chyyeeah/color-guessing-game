@@ -56,13 +56,13 @@ export default ({ username }) => {
   return (
     <div id="game">
       <div id="heading">
-        <h1>[NAME]'s COLOR GRID</h1>
+        <h1>{username}'s COLOR GRID</h1>
         <p>WINS: {wins}, LOSSES: {losses}</p>
       </div>
       <div id="board">
         <div className="temp-box command">
-          <p>FIND THIS COLOR</p>
-          <p>rgb({answer})</p>
+          <div>FIND THIS COLOR</div>
+          <div>rgb({answer})</div>
         </div>
         {
           [

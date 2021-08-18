@@ -1,5 +1,11 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
-export default () => {
-  return <h1>logout</h1>;
+const myStorage = window.localStorage;
+
+export default ({ setIsLoggedIn }) => {
+  delete myStorage.isLoggedIn;
+  delete myStorage.username;
+  setIsLoggedIn(false);
+  return <Redirect to='/' />;
 };
