@@ -15,8 +15,6 @@ export default ({ username }) => {
   const [wins, setWins] = useState(myStorage.wins);
   const [losses, setLosses] = useState(myStorage.losses);
 
-  console.log(username);
-
   const setters = [
     setColor1, setColor2, setColor3,
     setColor4, setColor5, setColor6
@@ -46,7 +44,7 @@ export default ({ username }) => {
       myStorage.losses++;
       setLosses(myStorage.losses);
     }
-    console.log(myStorage);
+    setBoard();
   };
 
   useEffect(() => {
