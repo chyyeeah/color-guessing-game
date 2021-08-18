@@ -1,0 +1,16 @@
+#game {
+  border: 1px solid black;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#board {
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+.temp-box {
+  height: 40px;
+  margin: 0 auto;
+  border: 1px solid black;
+}
