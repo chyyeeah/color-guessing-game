@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import ColorBox from './ColorBox.jsx';
 import generateRGBValue from '../../utils/generateRGBValue';
 
-const myStorage = window.localStorage;
+// const myStorage = window.localStorage;
 
-export default ({ username }) => {
+export default ({
+  username, wins, setWins,
+  losses, setLosses, sfDateTime,
+  setSfDateTime, nyDateTime, setNyDateTime
+}) => {
   const [color1, setColor1] = useState('');
   const [color2, setColor2] = useState('');
   const [color3, setColor3] = useState('');
@@ -12,8 +16,8 @@ export default ({ username }) => {
   const [color5, setColor5] = useState('');
   const [color6, setColor6] = useState('');
   const [answer, setAnswer] = useState('');
-  const [wins, setWins] = useState(myStorage.wins);
-  const [losses, setLosses] = useState(myStorage.losses);
+  // const [wins, setWins] = useState(myStorage.wins);
+  // const [losses, setLosses] = useState(myStorage.losses);
 
   const setters = [
     setColor1, setColor2, setColor3,
@@ -37,19 +41,19 @@ export default ({ username }) => {
 
   const submitAnswer = (e) => {
     const result = checkAnswer(e.target.dataset.rgb);
-    if (result) {
-      myStorage.wins++;
-      setWins(myStorage.wins);
-    } else {
-      myStorage.losses++;
-      setLosses(myStorage.losses);
-    }
+    // if (result) {
+    //   myStorage.wins++;
+    //   setWins(myStorage.wins);
+    // } else {
+    //   myStorage.losses++;
+    //   setLosses(myStorage.losses);
+    // }
     setBoard();
   };
 
   useEffect(() => {
-    myStorage.wins = 0;
-    myStorage.losses = 0;
+    // myStorage.wins = 0;
+    // myStorage.losses = 0;
     setBoard();
   }, []);
 

@@ -4,8 +4,9 @@ import { Redirect } from 'react-router-dom';
 const myStorage = window.localStorage;
 
 export default ({ setIsLoggedIn }) => {
+  setIsLoggedIn(false);
   delete myStorage.isLoggedIn;
   delete myStorage.username;
-  setIsLoggedIn(false);
+
   return <Redirect to='/' />;
 };

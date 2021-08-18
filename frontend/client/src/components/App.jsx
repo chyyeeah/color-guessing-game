@@ -12,18 +12,18 @@ import PrivateRoute from './PrivateRoute.jsx';
 
 const myStorage = window.localStorage;
 
-const checkLoggedIn = () => {
-  return !!myStorage.isLoggedIn;
-};
-
 const getUsername = () => {
   if (myStorage.username) return myStorage.username;
   return '';
 };
 
 export default () => {
-  const [ isLoggedIn, setIsLoggedIn ] = useState(checkLoggedIn());
-  const [ username, setUsername ] = useState(getUsername());
+  const [isLoggedIn, setIsLoggedIn] = useState(!!myStorage.isLoggedIn);
+  const [username, setUsername] = useState(getUsername());
+  const [wins, setWins] = useState(0);
+  const [losses, setLosses] = useState(0);
+  const [sfDateTime, setSfDateTime] = useState(0);
+  const [nyDateTime, setNyDateTime] = useState(0);
 
   return (
     <Router>
@@ -32,17 +32,30 @@ export default () => {
           path="/game"
           Component={Game}
           isLoggedIn={isLoggedIn}
-          username={username}>
+          username={username}
+          wins={wins}
+          setWins={setWins}
+          losses={losses}
+          setLosses={setLosses}
+          sfDateTime={sfDateTime}
+          setSfDateTime={setSfDateTime}
+          nyDateTime={nyDateTime}
+          setNyDateTime={setNyDateTime} >
         </PrivateRoute>
         <Route path="/logout">
           <Logout
-            setIsLoggedIn={setIsLoggedIn}/>
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn} />
         </Route>
         <Route path="/">
           <Home
             isLoggedIn={isLoggedIn}
             setIsLoggedIn={setIsLoggedIn}
-            setUsername={setUsername}/>
+            setUsername={setUsername}
+            setWins={setWins}
+            setLosses={setLosses}
+            setSfDateTime={setSfDateTime}
+            setNyDateTime={setNyDateTime} />
         </Route>
       </Switch>
     </Router>

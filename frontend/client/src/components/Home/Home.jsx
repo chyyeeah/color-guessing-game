@@ -3,7 +3,10 @@ import { Redirect } from 'react-router-dom';
 
 const myStorage = window.localStorage;
 
-export default ({ isLoggedIn, setIsLoggedIn, setUsername }) => {
+export default ({
+  isLoggedIn, setIsLoggedIn, setUsername,
+  setWins, setLosses, setSfDateTime, setNyDateTime
+}) => {
   const [ username, setFormUsername ] = useState('');
   const [ password, setFormPassword ] = useState('');
 
@@ -27,6 +30,10 @@ export default ({ isLoggedIn, setIsLoggedIn, setUsername }) => {
       .then((data) => {
         myStorage.isLoggedIn = true;
         myStorage.username = username;
+        setWins(data.wins);
+        setLosses(data.losses);
+        setSfDateTime(data.sfDateTime);
+        setNyDateTime(data.nyDateTime);
         setIsLoggedIn(true);
         setUsername(username);
       })
