@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import confetti from 'canvas-confetti';
 import ColorBox from './ColorBox.jsx';
+import NavBar from '../NavBar.jsx';
 import generateRGBValue from '../../utils/generateRGBValue';
 
 export default ({ username }) => {
@@ -59,63 +60,66 @@ export default ({ username }) => {
       },
       body: JSON.stringify(payload)
     })
-    .then((response) => response.json())
-    .then((data) => {
-      setWins(data.wins);
-      setLosses(data.losses);
-      setSfDateTime(data.sfDateTime);
-      setNyDateTime(data.nyDateTime);
-      setBoard();
-    })
-    .catch((error) => {
-      console.error('Error!', error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setWins(data.wins);
+        setLosses(data.losses);
+        setSfDateTime(data.sfDateTime);
+        setNyDateTime(data.nyDateTime);
+        setBoard();
+      })
+      .catch((error) => {
+        console.error('Error!', error);
+      });
   };
 
   useEffect(() => {
-    setBoard();
-
     fetch(`http://localhost:3001/score?username=${username}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setWins(data.wins);
-      setLosses(data.losses);
-      setSfDateTime(data.sfDateTime);
-      setNyDateTime(data.nyDateTime);
-      setBoard();
-    })
-    .catch((error) => {
-      console.error('Error!', error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setWins(data.wins);
+        setLosses(data.losses);
+        setSfDateTime(data.sfDateTime);
+        setNyDateTime(data.nyDateTime);
+        setBoard();
+      })
+      .catch((error) => {
+        console.error('Error!', error);
+      });
   }, []);
 
   return (
-    <div id="game">
-      <div id="heading">
-        <h1>{username}'s COLOR GRID</h1>
-        <p>WINS: {wins}, LOSSES: {losses}</p>
+    <>
+      <div>
+        <NavBar />
       </div>
-      <div id="board">
-        <div className="temp-box command">
-          <div>FIND THIS COLOR</div>
-          <div>rgb({answer})</div>
+      <div id="game">
+        <div id="heading">
+          <h1>{username}'s COLOR GRID</h1>
+          <p>WINS: {wins}, LOSSES: {losses}</p>
         </div>
-        {
-          [
-            color1, color2, color3,
-            color4, color5, color6
-          ].map((color, idx) => <ColorBox
-            key={`color${idx + 1}`}
-            box={`color${idx + 1}`}
-            rgb={color}
-            submitAnswer={submitAnswer} />
-          )
-        }
+        <div id="board">
+          <div className="temp-box command">
+            <div>FIND THIS COLOR</div>
+            <div>rgb({answer})</div>
+          </div>
+          {
+            [
+              color1, color2, color3,
+              color4, color5, color6
+            ].map((color, idx) => <ColorBox
+              key={`color${idx + 1}`}
+              box={`color${idx + 1}`}
+              rgb={color}
+              submitAnswer={submitAnswer} />
+            )
+          }
+        </div>
+        <div id="time">
+          <p>San Francisco Time. {moment(sfDateTime).format('h:mm A. MMMM D, YYYY')}</p>
+          <p>New York Time. {moment(nyDateTime).format('h:mm A. MMMM D, YYYY')}</p>
+        </div>
       </div>
-      <div id="time">
-        <p>San Francisco Time. {moment(sfDateTime).format('h:mm A. MMMM D, YYYY')}</p>
-        <p>New York Time. {moment(nyDateTime).format('h:mm A. MMMM D, YYYY')}</p>
-      </div>
-    </div>
+    </>
   )
 };
