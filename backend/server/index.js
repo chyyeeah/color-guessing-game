@@ -10,27 +10,46 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post('/login', (req, res) => {
-  const username = req.body.username;
+  const { username, password } = req.body;
 
-  if (!users[username]) {
-    users[username] = { wins: 0, losses: 0 };
+  if (users[username] && users[username].password === password) {
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(401);
+  }
+
+});
+
+app.get('/score', (req, res) => {
+  const { username } = req.query;
+  const payload = {
+    wins: users[username].wins,
+    losses: users[username].losses,
+    sfDateTime: getTime.sf(),
+    nyDateTime: getTime.ny()
+  };
+  res.send(payload);
+});
+
+app.post('/score', (req, res) => {
+  const { username, result } = req.body;
+
+  if (result) {
+    users[username].wins++;
+  } else {
+    users[username].losses++;
   }
 
   const payload = {
-    username,
     wins: users[username].wins,
-    lossess: users[username].losses,
-    sfDateTime: getTime.sf(),
-    nyDateTime: getTime.ny()
+    losses: users[username].losses,
+    sfDateTime: JSON.stringify(getTime.sf()),
+    nyDateTime: JSON.stringify(getTime.ny())
   };
 
   res.send(payload);
 });
 
-app.post('/score', (req, res) => {
-  res.send('');
-});
-
-app.post('/logout', (req, res) => {});
+app.post('/logout', (req, res) => { });
 
 app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));

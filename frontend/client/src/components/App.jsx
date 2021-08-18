@@ -20,10 +20,6 @@ const getUsername = () => {
 export default () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!myStorage.isLoggedIn);
   const [username, setUsername] = useState(getUsername());
-  const [wins, setWins] = useState(0);
-  const [losses, setLosses] = useState(0);
-  const [sfDateTime, setSfDateTime] = useState(0);
-  const [nyDateTime, setNyDateTime] = useState(0);
 
   return (
     <Router>
@@ -32,15 +28,7 @@ export default () => {
           path="/game"
           Component={Game}
           isLoggedIn={isLoggedIn}
-          username={username}
-          wins={wins}
-          setWins={setWins}
-          losses={losses}
-          setLosses={setLosses}
-          sfDateTime={sfDateTime}
-          setSfDateTime={setSfDateTime}
-          nyDateTime={nyDateTime}
-          setNyDateTime={setNyDateTime} >
+          username={username} >
         </PrivateRoute>
         <Route path="/logout">
           <Logout
@@ -51,11 +39,7 @@ export default () => {
           <Home
             isLoggedIn={isLoggedIn}
             setIsLoggedIn={setIsLoggedIn}
-            setUsername={setUsername}
-            setWins={setWins}
-            setLosses={setLosses}
-            setSfDateTime={setSfDateTime}
-            setNyDateTime={setNyDateTime} />
+            setUsername={setUsername} />
         </Route>
       </Switch>
     </Router>

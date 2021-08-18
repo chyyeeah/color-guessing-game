@@ -3,23 +3,28 @@ import { Redirect } from 'react-router-dom';
 
 const myStorage = window.localStorage;
 
-export default ({
-  isLoggedIn, setIsLoggedIn, setUsername,
-  setWins, setLosses, setSfDateTime, setNyDateTime
-}) => {
-  const [ username, setFormUsername ] = useState('');
-  const [ password, setFormPassword ] = useState('');
+export default ({ isLoggedIn, setIsLoggedIn, setUsername }) => {
+  const [username, setFormUsername] = useState('');
+  const [password, setFormPassword] = useState('');
+  const [errorUsername, setErrorUsername] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
+  const [errorLogin, setErrorLogin] = useState('');
 
   if (isLoggedIn) return <Redirect to='/game' />;
 
   const loginHandler = (e) => {
     e.preventDefault();
+
+    setErrorLogin('');
+    setErrorUsername('');
+    setErrorPassword('');
+
     const payload = {
       username,
       password
     };
 
-    if (username.length > 7 && password.length > 7) {
+    if (username.length >= 5 && password.length >= 5) {
       fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
@@ -27,36 +32,55 @@ export default ({
         },
         body: JSON.stringify(payload)
       })
-      .then((data) => {
-        myStorage.isLoggedIn = true;
-        myStorage.username = username;
-        setWins(data.wins);
-        setLosses(data.losses);
-        setSfDateTime(data.sfDateTime);
-        setNyDateTime(data.nyDateTime);
-        setIsLoggedIn(true);
-        setUsername(username);
-      })
-      .catch((error) => {
-        console.error('Error!', error);
-      });
+        .then((data) => {
+          if (data.status === 200) {
+            myStorage.isLoggedIn = true;
+            myStorage.username = username;
+            setUsername(username);
+            setIsLoggedIn(true);
+          } else {
+            setErrorLogin('Invalid credentials!');
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
+
+    if (username.length < 5) setErrorUsername('Username too short!');
+    if (password.length < 5) setErrorPassword('Password too short!');
   };
 
   return (
-    <div>
+    <div className="login">
       <form>
+        <h1>Login</h1>
+        {
+          errorLogin.length > 0
+          ? <div className="error">{errorLogin}</div>
+          : null
+        }
+        {
+          errorUsername.length > 0
+            ? <div className="error">{errorUsername}</div>
+            : null
+        }
+        {
+          errorPassword.length > 0
+            ? <div className="error">{errorPassword}</div>
+            : null
+        }
         <label>
           Username:
           <input
-          type="text"
-          onChange={(e) => {setFormUsername(e.target.value)}}></input>
+            type="text"
+            onChange={(e) => { setFormUsername(e.target.value) }}></input>
         </label>
         <label>
           Password:
           <input
-          type="password"
-          onChange={(e) => {setFormPassword(e.target.value)}} ></input>
+            type="password"
+            onChange={(e) => { setFormPassword(e.target.value) }} ></input>
         </label>
         <button onClick={loginHandler}>Login</button>
       </form>

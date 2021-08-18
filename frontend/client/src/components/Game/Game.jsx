@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
+import confetti from 'canvas-confetti';
 import ColorBox from './ColorBox.jsx';
 import generateRGBValue from '../../utils/generateRGBValue';
 
-// const myStorage = window.localStorage;
-
-export default ({
-  username, wins, setWins,
-  losses, setLosses, sfDateTime,
-  setSfDateTime, nyDateTime, setNyDateTime
-}) => {
+export default ({ username }) => {
   const [color1, setColor1] = useState('');
   const [color2, setColor2] = useState('');
   const [color3, setColor3] = useState('');
@@ -16,8 +12,10 @@ export default ({
   const [color5, setColor5] = useState('');
   const [color6, setColor6] = useState('');
   const [answer, setAnswer] = useState('');
-  // const [wins, setWins] = useState(myStorage.wins);
-  // const [losses, setLosses] = useState(myStorage.losses);
+  const [wins, setWins] = useState(0);
+  const [losses, setLosses] = useState(0);
+  const [sfDateTime, setSfDateTime] = useState(moment());
+  const [nyDateTime, setNyDateTime] = useState(moment());
 
   const setters = [
     setColor1, setColor2, setColor3,
@@ -41,20 +39,54 @@ export default ({
 
   const submitAnswer = (e) => {
     const result = checkAnswer(e.target.dataset.rgb);
-    // if (result) {
-    //   myStorage.wins++;
-    //   setWins(myStorage.wins);
-    // } else {
-    //   myStorage.losses++;
-    //   setLosses(myStorage.losses);
-    // }
-    setBoard();
+    const payload = { username, result };
+    if (result) {
+      confetti({
+        particleCount: 100,
+        startVelocity: 30,
+        spread: 360,
+        origin: {
+          x: Math.random(),
+          y: Math.random() - 0.2
+        }
+      });
+    }
+
+    fetch('http://localhost:3001/score', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setWins(data.wins);
+      setLosses(data.losses);
+      setSfDateTime(data.sfDateTime);
+      setNyDateTime(data.nyDateTime);
+      setBoard();
+    })
+    .catch((error) => {
+      console.error('Error!', error);
+    });
   };
 
   useEffect(() => {
-    // myStorage.wins = 0;
-    // myStorage.losses = 0;
     setBoard();
+
+    fetch(`http://localhost:3001/score?username=${username}`)
+    .then((response) => response.json())
+    .then((data) => {
+      setWins(data.wins);
+      setLosses(data.losses);
+      setSfDateTime(data.sfDateTime);
+      setNyDateTime(data.nyDateTime);
+      setBoard();
+    })
+    .catch((error) => {
+      console.error('Error!', error);
+    });
   }, []);
 
   return (
@@ -81,8 +113,8 @@ export default ({
         }
       </div>
       <div id="time">
-        <p>San Francisco Time. XX:XX</p>
-        <p>New York Time. XX:XX</p>
+        <p>San Francisco Time. {moment(sfDateTime).format('h:mm A. MMMM D, YYYY')}</p>
+        <p>New York Time. {moment(nyDateTime).format('h:mm A. MMMM D, YYYY')}</p>
       </div>
     </div>
   )
