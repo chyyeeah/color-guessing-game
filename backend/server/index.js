@@ -17,7 +17,6 @@ app.post('/login', (req, res) => {
   } else {
     res.sendStatus(401);
   }
-
 });
 
 app.get('/score', (req, res) => {
@@ -49,7 +48,5 @@ app.post('/score', (req, res) => {
 
   res.send(payload);
 });
-
-app.post('/logout', (req, res) => { });
 
 app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));

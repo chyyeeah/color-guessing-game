@@ -38,6 +38,13 @@ export default ({ username }) => {
     return answer === guess;
   };
 
+  const setData = (data) => {
+    setWins(data.wins);
+    setLosses(data.losses);
+    setSfDateTime(data.sfDateTime);
+    setNyDateTime(data.nyDateTime);
+  }
+
   const submitAnswer = (e) => {
     const result = checkAnswer(e.target.dataset.rgb);
     const payload = { username, result };
@@ -62,10 +69,7 @@ export default ({ username }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setWins(data.wins);
-        setLosses(data.losses);
-        setSfDateTime(data.sfDateTime);
-        setNyDateTime(data.nyDateTime);
+        setData(data);
         setBoard();
       })
       .catch((error) => {
@@ -77,10 +81,7 @@ export default ({ username }) => {
     fetch(`http://localhost:3001/score?username=${username}`)
       .then((response) => response.json())
       .then((data) => {
-        setWins(data.wins);
-        setLosses(data.losses);
-        setSfDateTime(data.sfDateTime);
-        setNyDateTime(data.nyDateTime);
+        setData(data);
         setBoard();
       })
       .catch((error) => {
