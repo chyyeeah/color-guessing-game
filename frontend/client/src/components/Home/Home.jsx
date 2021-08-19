@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import isProd from '../../utils/isProd';
+
+const AWS_URL = 'http://ec2-54-177-108-130.us-west-1.compute.amazonaws.com/';
+const URL = isProd ? AWS_URL : 'localhost:3001';
 
 const myStorage = window.localStorage;
 
@@ -25,7 +29,7 @@ export default ({ isLoggedIn, setIsLoggedIn, setUsername }) => {
     };
 
     if (username.length >= 5 && password.length >= 5) {
-      fetch('http://localhost:3001/login', {
+      fetch(`http://${URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

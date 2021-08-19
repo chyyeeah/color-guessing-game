@@ -4,6 +4,10 @@ import confetti from 'canvas-confetti';
 import ColorBox from './ColorBox.jsx';
 import NavBar from '../NavBar.jsx';
 import generateRGBValue from '../../utils/generateRGBValue';
+import isProd from '../../utils/isProd';
+
+const AWS_URL = 'http://ec2-54-177-108-130.us-west-1.compute.amazonaws.com/';
+const URL = isProd ? AWS_URL : 'localhost:3001';
 
 export default ({ username }) => {
   const [color1, setColor1] = useState('');
@@ -60,7 +64,7 @@ export default ({ username }) => {
       });
     }
 
-    fetch('http://localhost:3001/score', {
+    fetch(`http://${URL}/score`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -78,7 +82,7 @@ export default ({ username }) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3001/score?username=${username}`)
+    fetch(`http://${URL}/score?username=${username}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);

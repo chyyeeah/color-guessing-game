@@ -1,11 +1,11 @@
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const users = require('../db/users');
 const getTime = require('../utils/getTime');
 const app = express();
 const PORT = 3001;
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
