@@ -4,10 +4,7 @@ import confetti from 'canvas-confetti';
 import ColorBox from './ColorBox.jsx';
 import NavBar from '../NavBar.jsx';
 import generateRGBValue from '../../utils/generateRGBValue';
-import isProd from '../../utils/isProd';
-
-const AWS_URL = 'http://ec2-54-177-108-130.us-west-1.compute.amazonaws.com/';
-const URL = isProd ? AWS_URL : 'localhost:3001';
+import URL from '../../utils/URL';
 
 export default ({ username }) => {
   const [color1, setColor1] = useState('');

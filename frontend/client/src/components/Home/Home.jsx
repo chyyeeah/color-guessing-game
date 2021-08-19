@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import isProd from '../../utils/isProd';
-
-const AWS_URL = 'http://ec2-54-177-108-130.us-west-1.compute.amazonaws.com/';
-const URL = isProd ? AWS_URL : 'localhost:3001';
+import URL from '../../utils/URL';
 
 const myStorage = window.localStorage;
 
