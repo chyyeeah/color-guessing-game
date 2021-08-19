@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
   entry: path.resolve('client/src/index.js'),
   output: {
     path: path.resolve('client/dist'),
