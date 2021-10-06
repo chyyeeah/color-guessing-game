@@ -1,3 +1,5 @@
 node_modules
 bundle.js.LICENSE.txt
 frontend/client/dist/bundle.js
+frontend/package-lock.json
+backend/package-lock.json
